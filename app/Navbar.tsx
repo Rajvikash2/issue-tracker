@@ -6,7 +6,6 @@ import { GiAutoRepair } from "react-icons/gi";
 import classNames from 'classnames';
 const Navbar = () => {
     const pathname = usePathname();
-    console.log(pathname);
     const links =[
         {label:'Dashboard', href:'/'},
         {label:'Issues', href:'/issues'},
