@@ -9,6 +9,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/app/validationSchema";
 import {z} from 'zod'
+import Spinner from "@/app/components/Spinner";
 
 type Issue = z.infer<typeof createIssueSchema> // creates interface based on the schema provided in zod
 
@@ -17,6 +18,7 @@ const newIssue = () => {
     resolver: zodResolver(createIssueSchema)
   });
   const [error,setError] = useState('');
+  const [Issubmitting,setSubmitting] = useState(false);
   const router = useRouter();
   return (
    <div className="max-w-xl">
@@ -29,11 +31,13 @@ const newIssue = () => {
     <form className=' space-y-2' onSubmit={handleSubmit(async (data)=> 
       {
         try {
+          setSubmitting(true);
           await axios.post('/api/issues',data);
           router.push('/issues');
           
         } catch (error) {
         setError('An Unexpected error occured');
+        setSubmitting(false);
       }
     })}>
         <TextField.Root placeholder='Title' {...register('title')}>
@@ -45,7 +49,7 @@ const newIssue = () => {
         render={({field})=><SimpleMDE placeholder="Description" {...field} /> }
         />
         {errors.description && <Text color="red" as="p">{errors.description.message}</Text>}
-        <Button> Submit Issue </Button>
+        <Button disabled={Issubmitting}> Submit Issue {Issubmitting && <Spinner/>} </Button>
     </form>
       </div>
   )
