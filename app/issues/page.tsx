@@ -22,10 +22,13 @@ const Issues = async () => {
     <Table.Body>
       {issues.map(issue=>(
         <Table.Row key={issue.id}>
-          <Table.Cell>
+         <Table.Cell>
+          <Link href={`/issues/${issue.id}`}>
             {issue.title}
+          </Link>
             <div className='block md:hidden'><IssuesStatusBadge status={issue.status} /></div>
             </Table.Cell>
+        
           <Table.Cell className='hidden md:table-cell'><IssuesStatusBadge status={issue.status} /></Table.Cell>
           <Table.Cell className='hidden md:table-cell'>{issue.createdAt.toDateString()}</Table.Cell>
         </Table.Row>
