@@ -14,6 +14,7 @@ import Spinner from "@/app/components/Spinner";
 type Issue = z.infer<typeof createIssueSchema> // creates interface based on the schema provided in zod
 
 const newIssue = () => {
+ 
   const{ register, control , handleSubmit, formState:{errors} } = useForm<Issue>({
     resolver: zodResolver(createIssueSchema)
   });
