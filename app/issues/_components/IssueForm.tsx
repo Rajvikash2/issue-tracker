@@ -11,8 +11,14 @@ import { createIssueSchema } from "@/app/validationSchema";
 import {z} from 'zod'
 import Spinner from "@/app/components/Spinner";
 import { Issue } from "@prisma/client";
+import dynamic from "next/dynamic";
+import IssueFormSkeleton from "./IssueFormSkeleton";
+
+
+
 
 type IssueForm = z.infer<typeof createIssueSchema> // creates interface based on the schema provided in zod
+
 
 const IssueForm = ({issue} : {issue?:Issue}) => {
  
@@ -32,7 +38,7 @@ const IssueForm = ({issue} : {issue?:Issue}) => {
         else
             await axios.post('/api/issues',data);
         router.push('/issues');
-        router.refresh();
+        router.refresh()
         
       } catch (error) {
       setError('An Unexpected error occured');
