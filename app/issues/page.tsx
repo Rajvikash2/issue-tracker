@@ -10,7 +10,7 @@ const Issues = async () => {
  await delay(2000);
   return (
    <div className='max-w-7xl'>  
-   <IssueAction/>
+   <IssueAction />
    <Table.Root variant='surface' >
     <Table.Header>
       <Table.Row>
@@ -39,5 +39,5 @@ const Issues = async () => {
    </div>
   )
 }
-
+export const dynamic = 'force-dynamic';
 export default Issues
