@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { GiAutoRepair } from "react-icons/gi";
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
-import { Box } from '@radix-ui/themes';
+import { Box, Container, Flex } from '@radix-ui/themes';
 const Navbar = () => {
     const {status, data : session} = useSession();
     const pathname = usePathname();
@@ -15,8 +15,11 @@ const Navbar = () => {
     ]
   return (
    
-    <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
-        <Link href="/"><GiAutoRepair /></Link>
+    <nav className=' space-x-6 border-b mb-5 px-5 py-4'>
+        <Container>
+        <Flex justify='between'>
+            <Flex gap='3' align='center'>
+            <Link href="/"><GiAutoRepair /></Link>
         <ul className='flex space-x-5'>
             {links.map(link=>
             <li key={link.href}>
@@ -30,13 +33,17 @@ const Navbar = () => {
             </Link>
             </li>)}  
         </ul>
-          <Box>
+            </Flex>
+            <Box>
             {status === 'authenticated' ? (
                 <Link href='/api/auth/signout'>Log Out</Link>
             ) : (
                 <Link href='/api/auth/signin'>Login</Link>
             )}
           </Box>
+        </Flex>
+        </Container>
+          
     </nav>
   )
 }
