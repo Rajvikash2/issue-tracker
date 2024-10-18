@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 
-// auth
+// auth providers added need to add adapter
 const handler = NextAuth({
   providers:[
     GoogleProvider({
