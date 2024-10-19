@@ -76,7 +76,7 @@ const AuthStatus = () =>{
                 </DropdownMenu.Label>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item>
-                    <Link href='/api/auth/signout' className='hover:pl-3 transition-all duration-300'>Sign Out</Link>
+                    <Link href='/api/auth/signout' className='hover:pl-2 transition-all duration-300'>Sign Out</Link>
                 </DropdownMenu.Item>
             </DropdownMenu.Content>
         </DropdownMenu.Root>   
