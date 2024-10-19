@@ -6,7 +6,8 @@ import { GiAutoRepair } from "react-icons/gi";
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react'
 import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 const Navbar = () => {
    
 
@@ -58,7 +59,7 @@ const NavLinks = ()=>{
 
 const AuthStatus = () =>{
     const { status, data: session } = useSession();
-    if(status==='loading') return null;
+    if(status==='loading') return <Skeleton width='3rem' height='3rem'/>;
     if(status==='unauthenticated') 
         return <Link href='/api/auth/signin'>Log In</Link>;
     return (
@@ -75,7 +76,7 @@ const AuthStatus = () =>{
                 </DropdownMenu.Label>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item>
-                    <Link href='/api/auth/signout'>Sign Out</Link>
+                    <Link href='/api/auth/signout' className='hover:pl-3 transition-all duration-300'>Sign Out</Link>
                 </DropdownMenu.Item>
             </DropdownMenu.Content>
         </DropdownMenu.Root>   
