@@ -20,16 +20,18 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   if (error) return null;
 
+  const assignIssue = (userId : string) => {
+    const assignedToUserId = userId === 'none' ? null : userId;
+    axios.patch('/api/issues/' + issue.id, { assignedToUserId })
+    .catch(()=> {
+      toast.error('Something went wrong')});
+  }
+
   return (
     <div>
     <Select.Root 
     defaultValue={issue.assignedToUserId || ""}
-    onValueChange={(userId) => {
-      const assignedToUserId = userId === 'none' ? null : userId;
-      axios.patch('/api/issues/' + issue.id, { assignedToUserId })
-      .catch(()=> {
-        toast.error('Something went wrong')});
-    }}>
+    onValueChange={assignIssue}>
       <Select.Trigger placeholder='Assign ...' />
       <Select.Content>
         <Select.Group>
