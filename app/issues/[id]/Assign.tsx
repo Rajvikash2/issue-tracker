@@ -6,6 +6,7 @@ import axios from 'axios';
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import toast, { Toaster } from 'react-hot-toast'
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useQuery<User[]>({
@@ -20,11 +21,14 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   if (error) return null;
 
   return (
+    <div>
     <Select.Root 
     defaultValue={issue.assignedToUserId || ""}
     onValueChange={(userId) => {
       const assignedToUserId = userId === 'none' ? null : userId;
-      axios.patch('/api/issues/' + issue.id, { assignedToUserId });
+      axios.patch('/api/issues/' + issue.id, { assignedToUserId })
+      .catch(()=> {
+        toast.error('Something went wrong')});
     }}>
       <Select.Trigger placeholder='Assign ...' />
       <Select.Content>
@@ -37,6 +41,8 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         </Select.Group>
       </Select.Content>
     </Select.Root>
+    <Toaster />
+    </div>
   );
 }
 
