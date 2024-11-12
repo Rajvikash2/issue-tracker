@@ -85,7 +85,7 @@ const issueCount = await prisma.issue.count({where});
 export const dynamic = 'force-dynamic';
 
 export const metadata:Metadata={
-  title:'Issue Tracker - Issue List',
+  title:'Glitch Guard - Issue List',
   description:'View all lsit of issues',
 };
 
