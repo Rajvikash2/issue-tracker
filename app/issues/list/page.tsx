@@ -1,12 +1,12 @@
 import IssuesStatusBadge from '@/app/components/IssuesStatusBadge';
 import Link from '@/app/components/Link';
-import NextLink from 'next/link';
+import Pagination from '@/app/components/Pagination';
 import prisma from '@/prisma/client';
-import { Table } from '@radix-ui/themes';
-import IssueAction from './IssueAction';
 import { Issue, Status } from '@prisma/client';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
-import Pagination from '@/app/components/Pagination';
+import { Table } from '@radix-ui/themes';
+import NextLink from 'next/link';
+import IssueAction from './IssueAction';
 
 interface Props{
   searchParams : {
