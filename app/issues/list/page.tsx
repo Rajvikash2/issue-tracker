@@ -6,9 +6,14 @@ import { Table } from '@radix-ui/themes';
 import IssueAction from './IssueAction';
 import { Issue, Status } from '@prisma/client';
 import { ArrowUpIcon } from '@radix-ui/react-icons';
+import Pagination from '@/app/components/Pagination';
 
 interface Props{
-  searchParams : {status : Status, orderBy:keyof Issue}
+  searchParams : {
+    status : Status, 
+    orderBy:keyof Issue,
+    page:string
+  }
 }
 
 const columns : {label:string,value: keyof Issue,className?:string}[] = [
@@ -21,12 +26,21 @@ const columns : {label:string,value: keyof Issue,className?:string}[] = [
 const Issues = async ({searchParams} : Props) => {
  const statuses = Object.values(Status)
  const status  = statuses.includes(searchParams.status) ? searchParams.status:undefined;
+
+ // condition for filtering issues based on status saved in a const to use it repeatedly
+ const where = {status};
+
+ const page = parseInt(searchParams.page) || 1;
+  const pageSize = 10;
+
  const issues = await prisma.issue.findMany({
-  where: {
-    ...(status && { status }), // conditionally apply the status filter
-  },
+  where,
   orderBy: searchParams.orderBy ? { [searchParams.orderBy]: 'asc' } : undefined, // dynamically set orderBy based on searchParams
+  skip:(page - 1) * pageSize,
+  take:pageSize,
 });
+
+const issueCount = await prisma.issue.count({where});
 
   return (
    <div className='max-w-7xl'>  
@@ -61,7 +75,9 @@ const Issues = async ({searchParams} : Props) => {
       ))}
     </Table.Body>
    </Table.Root>
-  
+   <div className='flex justify-center mt-5'>
+   <Pagination itemCount={issueCount} pageSize={pageSize} currentPage={page} />
+   </div>
    </div>
   )
 }
