@@ -7,6 +7,7 @@ import { ArrowUpIcon } from '@radix-ui/react-icons';
 import { Table } from '@radix-ui/themes';
 import NextLink from 'next/link';
 import IssueAction from './IssueAction';
+import { Metadata } from 'next';
 
 interface Props{
   searchParams : {
@@ -82,4 +83,10 @@ const issueCount = await prisma.issue.count({where});
   )
 }
 export const dynamic = 'force-dynamic';
+
+export const metadata:Metadata={
+  title:'Issue Tracker - Issue List',
+  description:'View all lsit of issues',
+};
+
 export default Issues
